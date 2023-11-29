@@ -1,28 +1,28 @@
 const {response}= require('express')
 
 //Importancia de los modelos
-const Categoria = require('../models/categoria')
+const Viajes = require('../models/viajes')
 
 //Metodo GET de la API
-const categoriaGet = async (req, res = response) =>{
+const viajesGet = async (req, res = response) =>{
     //const {nombre} = req.query //Desestructuracion
 
     //Consultar todos los Vehiculos
-    const categoria = await Categoria.find()
+    const viajes = await Viajes.find()
 
     res.json({ //RESPUESTA EN JSOn
-        categoria
+        viajes
     })
    
 }
 //Método POST de la api
-const categoriaPost = async(req, res) => {
+const viajesPost = async(req, res) => {
     let mensaje = 'Inserción Exitosa'
     const body = req.body //Captura de atributos
     //console.log(body);
     try {
-        const categoria = new Categoria(body) //Instanciando el objeto
-        await categoria.save() //Inserta en la colección
+        const viajes = new Viajes(body) //Instanciando el objeto
+        await viajes.save() //Inserta en la colección
     } catch (error) {
         mensaje = error
         console.log(error)
@@ -34,13 +34,13 @@ const categoriaPost = async(req, res) => {
 
 
 //Método Put de la api
-const categoriaPut = async(req, res = response) => {
+const viajesPut = async(req, res = response) => {
 
-    const {id, nombre, descripcion, estado} = req.body
+    const {codigo, nombre, descripcion, estado} = req.body
     let mensaje = 'Modificación exitosa'
     try{
-         await Categoria.findOneAndUpdate({id:id}, 
-            {id:id, nombre:nombre, descripcion:descripcion, estado:estado})
+         await Viajes.findOneAndUpdate({codigo:codigo}, 
+            {codigo:codigo, ciudadOrigen:ciudadOrigen, ciudadDestino:ciudadDestino, precioPesos:precioPesos, cantidadPasajeros:cantidadPasajeros})
     }
     catch(error){
         mensaje = 'Se presentaron problemas en la modificación.'
@@ -51,13 +51,13 @@ const categoriaPut = async(req, res = response) => {
     })
 }
 //Método DELETE de la api
-const categoriaDelete = async(req, res) => {
+const viajesDelete = async(req, res) => {
 
     const {_id} = req.body
     let mensaje = 'La eliminiación se efectuó exitosamente.'
 
     try{
-        const categoria = await Categoria.deleteOne({_id: _id})
+        const viajes = await Viajes.deleteOne({_id: _id})
     }
     catch(error){
         mensaje = 'Se presentaron problemas en la eliminación.'
@@ -70,8 +70,8 @@ const categoriaDelete = async(req, res) => {
 
 
 module.exports= {
-    categoriaGet, 
-    categoriaPost,
-    categoriaPut,
-    categoriaDelete
+    viajesGet, 
+    viajesPost,
+    viajesPut,
+    viajesDelete
 }

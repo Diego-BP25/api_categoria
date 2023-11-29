@@ -9,7 +9,7 @@ class Server{
     constructor (){
         this.app= express()
         this.port = process.env.PORT // Capturando variable
-        this.categoriaPath ='/api/categoria' //Ruta publica para la API
+        this.viajesPath ='/api/viajes' //Ruta publica para la API
         this.conectarDB() //Conexion base de datos
         this.middlewares()
         this.routes() //Establecer las rutas
@@ -30,7 +30,7 @@ class Server{
 
 
     routes(){
-        this.app.use(this.categoriaPath, require('../routes/categoria'))
+        this.app.use(this.viajesPath, require('../routes/viajes'))
     }
     async conectarDB(){
         await dbConnection() //Esperar la respuesta del servidor
